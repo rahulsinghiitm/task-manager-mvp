@@ -292,6 +292,24 @@ textarea {
   margin-bottom: 3.5rem;
 }
 
+.success-banner,
+.error-banner {
+  padding: 1rem 1.15rem;
+  border-radius: 1.25rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+}
+
+.success-banner {
+  background: rgba(93, 94, 97, 0.08);
+  color: var(--text);
+}
+
+.error-banner {
+  background: rgba(251, 75, 65, 0.12);
+  color: var(--tertiary);
+}
+
 .dictation-content {
   display: flex;
   align-items: center;
@@ -411,6 +429,26 @@ textarea {
   background: var(--surface-low);
   border-radius: 2.5rem;
   box-shadow: var(--shadow);
+}
+
+.capture-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.capture-button-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.audio-ready {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
 .mini-calendar-card {
@@ -673,6 +711,11 @@ textarea {
   animation: pulse 2.4s infinite;
 }
 
+.mic-button.recording {
+  background: linear-gradient(135deg, #9f403d, #752121);
+  animation-duration: 1.1s;
+}
+
 .mic-button .material-symbols-outlined {
   font-size: 3rem;
 }
@@ -694,6 +737,104 @@ textarea {
   background: rgba(255, 255, 255, 0.88);
   color: var(--text);
   outline: none;
+}
+
+.review-card {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.6);
+  text-align: left;
+  box-shadow: var(--shadow);
+}
+
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.review-head h3 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.review-head p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.warning-stack {
+  margin-top: 1rem;
+}
+
+.warning-text {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  background: rgba(251, 75, 65, 0.08);
+  color: var(--tertiary);
+  font-size: 0.88rem;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.review-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.review-grid label span {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.review-grid input,
+.review-grid select,
+.review-grid textarea {
+  width: 100%;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.95rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  outline: none;
+}
+
+.review-grid textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.review-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.25rem;
+}
+
+.primary-action {
+  padding: 0.75rem 1.15rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dim));
+  color: white;
+  box-shadow: var(--shadow);
 }
 
 .chip-row {
@@ -950,5 +1091,16 @@ textarea {
 
   .capture-stage {
     padding: 2rem 1rem;
+  }
+
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-head,
+  .review-actions,
+  .capture-button-row {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

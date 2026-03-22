@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { projects, seededTasks } from "./data";
 import type { Project, Task, TaskPriority, TaskStatus, ViewMode } from "./types";
+import type { VoiceParseResponse, VoiceTaskDraft } from "./voiceTypes";
 
-const today = "2026-03-21";
+const today = "2026-03-22";
 
 const priorityWeight: Record<TaskPriority, number> = {
   critical: 4,
@@ -63,36 +64,6 @@ function isoDate(date: Date) {
   return date.toISOString().slice(0, 10);
 }
 
-function inferProjectId(input: string) {
-  const normalized = input.toLowerCase();
-
-  if (normalized.includes("flywheel")) return "flywheel";
-  if (normalized.includes("consult") || normalized.includes("client")) return "consulting";
-  if (normalized.includes("side")) return "sidecar";
-  return "personal";
-}
-
-function inferPriority(input: string): TaskPriority {
-  const normalized = input.toLowerCase();
-
-  if (normalized.includes("urgent") || normalized.includes("asap") || normalized.includes("today")) {
-    return "critical";
-  }
-  if (normalized.includes("important") || normalized.includes("tomorrow")) return "high";
-  if (normalized.includes("low")) return "low";
-  return "medium";
-}
-
-function inferStatus(input: string): TaskStatus {
-  const normalized = input.toLowerCase();
-
-  if (normalized.includes("waiting on") || normalized.includes("follow up")) return "waiting";
-  if (normalized.includes("blocked")) return "blocked";
-  if (normalized.includes("delegate")) return "delegated";
-  if (normalized.includes("working on")) return "in-progress";
-  return "inbox";
-}
-
 function getUrgency(task: Task) {
   const days = differenceInDays(task.dueDate);
 
@@ -104,12 +75,40 @@ function getUrgency(task: Task) {
   return { label: "Calm", tone: "calm" };
 }
 
+function draftToTask(draft: VoiceTaskDraft): Task {
+  return {
+    id: `task-${crypto.randomUUID()}`,
+    title: draft.title.trim() || "Untitled task",
+    description: draft.description.trim() || "Captured with voice update.",
+    projectId: draft.projectId ?? "personal",
+    status: draft.status,
+    priority: draft.priority,
+    dueDate: draft.dueDate,
+    scheduledDate: draft.scheduledDate,
+    startDate: today,
+    owner: draft.owner || "Rahul",
+    dependencyLabel: draft.dependencyLabel,
+    effort: draft.effort,
+    tags: draft.tags.length > 0 ? draft.tags : ["captured"],
+  };
+}
+
 function App() {
   const [view, setView] = useState<ViewMode>("dashboard");
   const [tasks, setTasks] = useState<Task[]>(seededTasks);
   const [captureInput, setCaptureInput] = useState("");
   const [selectedProjectId, setSelectedProjectId] = useState("flywheel");
   const [selectedDate, setSelectedDate] = useState(today);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
+  const [parseError, setParseError] = useState<string | null>(null);
+  const [parseResult, setParseResult] = useState<VoiceParseResponse | null>(null);
+  const [reviewDraft, setReviewDraft] = useState<VoiceTaskDraft | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const [lastSavedTaskId, setLastSavedTaskId] = useState<string | null>(null);
+
+  const recorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   const projectById = useMemo(
     () =>
@@ -166,38 +165,85 @@ function App() {
     completed: selectedProjectTasks.filter((task) => task.status === "done"),
   };
 
-  function addTask() {
-    const trimmed = captureInput.trim();
-    if (!trimmed) return;
+  async function startRecording() {
+    setParseError(null);
 
-    const projectId = inferProjectId(trimmed);
-    const status = inferStatus(trimmed);
-    const priority = inferPriority(trimmed);
+    if (!("MediaRecorder" in window) || !navigator.mediaDevices?.getUserMedia) {
+      setParseError("Voice recording is not supported in this browser. You can still type a task below.");
+      return;
+    }
 
-    setTasks((current) => [
-      {
-        id: `task-${crypto.randomUUID()}`,
-        title: trimmed,
-        description: "Captured via Smart Add. Refine details when you review it.",
-        projectId,
-        status,
-        priority,
-        dueDate: trimmed.toLowerCase().includes("today")
-          ? today
-          : trimmed.toLowerCase().includes("tomorrow")
-            ? isoDate(addDays(new Date(`${today}T00:00:00`), 1))
-            : null,
-        scheduledDate: null,
-        startDate: today,
-        owner: "Rahul",
-        dependencyLabel: status === "waiting" ? "Needs follow-up" : null,
-        effort: "medium",
-        tags: ["captured"],
-      },
-      ...current,
-    ]);
-    setSelectedProjectId(projectId);
-    setCaptureInput("");
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const recorder = new MediaRecorder(stream);
+    chunksRef.current = [];
+
+    recorder.ondataavailable = (event) => {
+      if (event.data.size > 0) chunksRef.current.push(event.data);
+    };
+
+    recorder.onstop = () => {
+      const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/webm" });
+      setAudioBlob(blob);
+      stream.getTracks().forEach((track) => track.stop());
+    };
+
+    recorderRef.current = recorder;
+    recorder.start();
+    setIsRecording(true);
+  }
+
+  function stopRecording() {
+    recorderRef.current?.stop();
+    setIsRecording(false);
+  }
+
+  async function parseCapture() {
+    if (!captureInput.trim() && !audioBlob) {
+      setParseError("Add a transcript or record audio first.");
+      return;
+    }
+
+    setIsParsing(true);
+    setParseError(null);
+    setLastSavedTaskId(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("transcript", captureInput);
+      formData.append("todayIsoDate", today);
+      formData.append("timezone", "Asia/Kolkata");
+
+      if (audioBlob) {
+        formData.append("audio", new File([audioBlob], "voice-note.webm", { type: audioBlob.type || "audio/webm" }));
+      }
+
+      const response = await fetch("/api/voice-task/parse", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = (await response.json()) as VoiceParseResponse | { error: string };
+      if (!response.ok || "error" in data) {
+        throw new Error("error" in data ? data.error : "Failed to parse voice task.");
+      }
+
+      setParseResult(data);
+      setReviewDraft(data.draft);
+      if (data.draft.projectId) setSelectedProjectId(data.draft.projectId);
+    } catch (error) {
+      setParseError(error instanceof Error ? error.message : "Could not parse that task.");
+    } finally {
+      setIsParsing(false);
+    }
+  }
+
+  function saveReviewedTask() {
+    if (!reviewDraft) return;
+
+    const savedTask = draftToTask(reviewDraft);
+    setTasks((current) => [savedTask, ...current]);
+    setLastSavedTaskId(savedTask.id);
+    setSelectedProjectId(savedTask.projectId);
     setView("projects");
   }
 
@@ -244,7 +290,7 @@ function App() {
                 <span className="material-symbols-outlined fill-icon">mic</span>
                 <div>
                   <strong>Smart Dictation</strong>
-                  <p>AI will sort your tasks, project context, and urgency.</p>
+                  <p>Transcribe, classify, and route a task into the right project.</p>
                 </div>
               </div>
               <span className="material-symbols-outlined">arrow_forward</span>
@@ -328,6 +374,8 @@ function App() {
               <h2>Your active curation.</h2>
             </header>
 
+            {lastSavedTaskId && <div className="success-banner">Voice task saved into {projectById[selectedProjectId].name}.</div>}
+
             <section className="project-bento">
               {projects.map((project, index) => {
                 const open = tasks.filter((task) => task.projectId === project.id && task.status !== "done");
@@ -386,35 +434,11 @@ function App() {
                 </button>
               </div>
 
-              <ProjectSection
-                title="Blocked"
-                tone="urgent"
-                tasks={groupedProjectTasks.blocked}
-                project={selectedProject}
-                onCycleStatus={cycleStatus}
-              />
-              <ProjectSection
-                title="In Progress"
-                tone="default"
-                tasks={groupedProjectTasks.progress}
-                project={selectedProject}
-                onCycleStatus={cycleStatus}
-              />
-              <ProjectSection
-                title="Pending"
-                tone="muted"
-                tasks={groupedProjectTasks.pending}
-                project={selectedProject}
-                onCycleStatus={cycleStatus}
-              />
+              <ProjectSection title="Blocked" tone="urgent" tasks={groupedProjectTasks.blocked} project={selectedProject} onCycleStatus={cycleStatus} />
+              <ProjectSection title="In Progress" tone="default" tasks={groupedProjectTasks.progress} project={selectedProject} onCycleStatus={cycleStatus} />
+              <ProjectSection title="Pending" tone="muted" tasks={groupedProjectTasks.pending} project={selectedProject} onCycleStatus={cycleStatus} />
               {groupedProjectTasks.completed.length > 0 && (
-                <ProjectSection
-                  title="Completed"
-                  tone="faded"
-                  tasks={groupedProjectTasks.completed}
-                  project={selectedProject}
-                  onCycleStatus={cycleStatus}
-                />
+                <ProjectSection title="Completed" tone="faded" tasks={groupedProjectTasks.completed} project={selectedProject} onCycleStatus={cycleStatus} />
               )}
             </section>
           </section>
@@ -427,7 +451,9 @@ function App() {
                 <p className="transcript-quote">
                   {captureInput
                     ? `“${captureInput}”`
-                    : "“Call John tomorrow about Flywheel proposal at 2 PM”"}
+                    : isRecording
+                      ? "“Listening for your task update…”"
+                      : "“Call John tomorrow about Flywheel proposal at 2 PM”"}
                 </p>
                 <div className="listening-dots">
                   <span />
@@ -436,39 +462,167 @@ function App() {
                 </div>
               </div>
 
-              <button className="mic-button" onClick={addTask}>
-                <span className="material-symbols-outlined fill-icon">mic</span>
-              </button>
+              <div className="capture-actions">
+                {!isRecording ? (
+                  <button className="mic-button" onClick={startRecording} disabled={isParsing}>
+                    <span className="material-symbols-outlined fill-icon">mic</span>
+                  </button>
+                ) : (
+                  <button className="mic-button recording" onClick={stopRecording}>
+                    <span className="material-symbols-outlined fill-icon">stop</span>
+                  </button>
+                )}
+                <div className="capture-button-row">
+                  <button className="ghost-button" onClick={parseCapture} disabled={isParsing}>
+                    {isParsing ? "Parsing..." : "Parse update"}
+                  </button>
+                  {audioBlob && <span className="audio-ready">Audio captured</span>}
+                </div>
+              </div>
 
               <div className="capture-input-shell">
                 <textarea
                   value={captureInput}
                   onChange={(event) => setCaptureInput(event.target.value)}
-                  placeholder="Dictate or type a task here..."
+                  placeholder="Type what you want to say, or record audio, then parse it with Gemini..."
                 />
               </div>
 
+              {parseError && <div className="error-banner">{parseError}</div>}
+
               <div className="chip-row">
-                <CaptureChip icon="folder" label={`Project: ${projectById[inferProjectId(captureInput || "flywheel")].name}`} tone="secondary" />
-                <CaptureChip
-                  icon="event"
-                  label={
-                    captureInput.toLowerCase().includes("tomorrow")
-                      ? "Tomorrow"
-                      : captureInput.toLowerCase().includes("today")
-                        ? "Today"
-                        : "No deadline"
-                  }
-                  tone="default"
-                />
-                <CaptureChip icon="priority_high" label={`Priority: ${inferPriority(captureInput || "").toUpperCase()}`} tone="urgent" />
-                <CaptureChip icon="task" label={`Status: ${statusLabel[inferStatus(captureInput || "")]}`} tone="soft" />
+                <CaptureChip icon="folder" label={`Project: ${reviewDraft?.projectName ?? "Unknown"}`} tone="secondary" />
+                <CaptureChip icon="event" label={reviewDraft?.dueDate ?? "No due date"} tone="default" />
+                <CaptureChip icon="priority_high" label={`Priority: ${(reviewDraft?.priority ?? "medium").toUpperCase()}`} tone="urgent" />
+                <CaptureChip icon="task" label={`Status: ${statusLabel[reviewDraft?.status ?? "inbox"]}`} tone="soft" />
               </div>
 
               <p className="processing-copy">
                 <span className="processing-dot" />
-                AI is processing your request
+                {parseResult?.provider === "gemini"
+                  ? "Gemini parsed your update"
+                  : parseResult?.provider === "local-fallback"
+                    ? "Local fallback parser active"
+                    : "AI is waiting for your update"}
               </p>
+
+              {parseResult && reviewDraft && (
+                <section className="review-card">
+                  <div className="review-head">
+                    <div>
+                      <h3>Review parsed task</h3>
+                      <p>
+                        Provider: {parseResult.provider} · Confidence: {Math.round(reviewDraft.confidence * 100)}%
+                      </p>
+                    </div>
+                    {reviewDraft.needsReview && <span className="urgency-pill soon">Review recommended</span>}
+                  </div>
+
+                  {parseResult.warnings.length > 0 && (
+                    <div className="warning-stack">
+                      {parseResult.warnings.map((warning) => (
+                        <p key={warning} className="warning-text">
+                          {warning}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="review-grid">
+                    <label>
+                      <span>Transcript</span>
+                      <textarea
+                        value={reviewDraft.transcript}
+                        onChange={(event) => setReviewDraft({ ...reviewDraft, transcript: event.target.value })}
+                      />
+                    </label>
+                    <label>
+                      <span>Task title</span>
+                      <input
+                        value={reviewDraft.title}
+                        onChange={(event) => setReviewDraft({ ...reviewDraft, title: event.target.value })}
+                      />
+                    </label>
+                    <label>
+                      <span>Project</span>
+                      <select
+                        value={reviewDraft.projectId ?? ""}
+                        onChange={(event) => {
+                          const projectId = event.target.value || null;
+                          setReviewDraft({
+                            ...reviewDraft,
+                            projectId,
+                            projectName: projectId ? projectById[projectId].name : null,
+                          });
+                        }}
+                      >
+                        <option value="">Needs review</option>
+                        {projects.map((project) => (
+                          <option key={project.id} value={project.id}>
+                            {project.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      <span>Status</span>
+                      <select
+                        value={reviewDraft.status}
+                        onChange={(event) =>
+                          setReviewDraft({ ...reviewDraft, status: event.target.value as VoiceTaskDraft["status"] })
+                        }
+                      >
+                        <option value="inbox">Inbox</option>
+                        <option value="next">Next</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="waiting">Waiting</option>
+                        <option value="blocked">Blocked</option>
+                        <option value="delegated">Delegated</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Priority</span>
+                      <select
+                        value={reviewDraft.priority}
+                        onChange={(event) =>
+                          setReviewDraft({ ...reviewDraft, priority: event.target.value as TaskPriority })
+                        }
+                      >
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                      </select>
+                    </label>
+                    <label>
+                      <span>Due date</span>
+                      <input
+                        type="date"
+                        value={reviewDraft.dueDate ?? ""}
+                        onChange={(event) => setReviewDraft({ ...reviewDraft, dueDate: event.target.value || null })}
+                      />
+                    </label>
+                    <label className="full-width">
+                      <span>Dependency / waiting on</span>
+                      <input
+                        value={reviewDraft.dependencyLabel ?? ""}
+                        onChange={(event) =>
+                          setReviewDraft({ ...reviewDraft, dependencyLabel: event.target.value || null })
+                        }
+                      />
+                    </label>
+                  </div>
+
+                  <div className="review-actions">
+                    <button className="ghost-button" onClick={() => setParseResult(null)}>
+                      Clear
+                    </button>
+                    <button className="primary-action" onClick={saveReviewedTask}>
+                      Save task
+                    </button>
+                  </div>
+                </section>
+              )}
             </div>
           </section>
         )}
@@ -512,9 +666,7 @@ function App() {
               {selectedDayTasks.map((task, index) => (
                 <div key={task.id} className={`timeline-block ${getUrgency(task).tone}`}>
                   <div className="timeline-marker" />
-                  <span className="timeline-time">
-                    {task.scheduledDate === selectedDate ? "Scheduled" : "Due"}
-                  </span>
+                  <span className="timeline-time">{task.scheduledDate === selectedDate ? "Scheduled" : "Due"}</span>
                   <div className="timeline-card">
                     <div className="timeline-card-meta">
                       <span className={`chip chip-${task.projectId}`}>{projectById[task.projectId].name}</span>
@@ -567,13 +719,7 @@ function ProgressRing({ value }: { value: number }) {
     <div className="progress-ring">
       <svg viewBox="0 0 72 72">
         <circle cx="36" cy="36" r="28" className="track" />
-        <circle
-          cx="36"
-          cy="36"
-          r="28"
-          className="fill"
-          style={{ strokeDasharray: dashArray, strokeDashoffset: dashOffset }}
-        />
+        <circle cx="36" cy="36" r="28" className="fill" style={{ strokeDasharray: dashArray, strokeDashoffset: dashOffset }} />
       </svg>
       <div>{value}%</div>
     </div>

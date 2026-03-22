@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Flywheel Project Details</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9fc",
+              "on-secondary": "#f7f9ff",
+              "tertiary-fixed": "#fb4b41",
+              "background": "#faf9fc",
+              "primary-container": "#e2e2e5",
+              "secondary-fixed": "#dfe2eb",
+              "surface-container-high": "#e7e8f0",
+              "inverse-on-surface": "#9d9ca0",
+              "on-primary-container": "#505254",
+              "on-error-container": "#752121",
+              "primary-fixed-dim": "#d4d4d7",
+              "on-error": "#fff7f6",
+              "error-dim": "#4e0309",
+              "surface-container-highest": "#e0e2ec",
+              "outline-variant": "#afb1bc",
+              "on-secondary-container": "#4e5259",
+              "on-primary-fixed-variant": "#5a5c5e",
+              "secondary-container": "#dfe2eb",
+              "secondary-dim": "#4f535a",
+              "secondary": "#5b5f67",
+              "on-tertiary-fixed-variant": "#340001",
+              "surface-container": "#ededf4",
+              "surface-variant": "#e0e2ec",
+              "surface-container-low": "#f4f3f8",
+              "tertiary-fixed-dim": "#e93e36",
+              "on-tertiary": "#fff7f6",
+              "tertiary-dim": "#a90710",
+              "on-background": "#2f323a",
+              "on-surface-variant": "#5c5f68",
+              "on-surface": "#2f323a",
+              "surface": "#faf9fc",
+              "on-primary": "#f7f7fa",
+              "outline": "#787a84",
+              "on-secondary-fixed": "#3b4046",
+              "surface-dim": "#d7d9e6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#d1d4dd",
+              "primary-dim": "#515255",
+              "inverse-surface": "#0d0e11",
+              "on-primary-fixed": "#3e3f42",
+              "tertiary": "#bb1b1b",
+              "inverse-primary": "#f9f9fc",
+              "on-tertiary-container": "#110000",
+              "primary-fixed": "#e2e2e5",
+              "error-container": "#fe8983",
+              "on-secondary-fixed-variant": "#585c63",
+              "error": "#9f403d",
+              "surface-tint": "#5d5e61",
+              "tertiary-container": "#fb4b41",
+              "on-tertiary-fixed": "#000000",
+              "primary": "#5d5e61"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+        }
+        .thin-scrollbar::-webkit-scrollbar { width: 4px; }
+        .thin-scrollbar::-webkit-scrollbar-thumb { background: #e2e2e5; border-radius: 10px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container">
+<!-- TopAppBar -->
+<header class="bg-[#faf9fc]/70 dark:bg-[#1A1C1E]/70 backdrop-blur-xl fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<button class="text-slate-700 hover:opacity-80 transition-opacity duration-300">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-['Manrope'] font-bold text-slate-800 dark:text-slate-100 tracking-tight text-xl">Flywheel</h1>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-700">search</span>
+<div class="w-8 h-8 rounded-full bg-secondary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="User avatar professional portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIGbIXVN5nKH-t86fJY4AU824RaZ5zkzXt0WOUUTfhih2lAEHNiagwYYZ6zXL7BSfwuwo6JgQU8ZIf6uw1dyiLaM-nlxlnTZo3Z2T1Njz7EOWUgMO2OIDvTX2CN6ekLpBzii5a2wknrO3FTLr-8ke5AOlN__Q9PSc2zo37_sYxCZjlydTCWC07R8tc2TP48Z2lfzLab4HdStWAX9aSWgAhQWJOgUiTAhRiz6r-doVbENmEK2qwQuc9-_t927hNP-Zs9SMmziNKRCw"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-3xl mx-auto">
+<!-- Project Stats Bento Layout -->
+<section class="grid grid-cols-2 gap-4 mb-10">
+<div class="col-span-2 bg-surface-container-low p-6 rounded-full flex justify-between items-end">
+<div>
+<span class="font-label text-xs uppercase tracking-widest text-outline mb-1 block">Active Project</span>
+<h2 class="font-headline font-extrabold text-3xl text-on-surface">Design Sprint Q4</h2>
+</div>
+<div class="text-right">
+<span class="text-xs font-label text-outline block">PROGRESS</span>
+<span class="font-headline font-bold text-xl text-primary">64%</span>
+</div>
+</div>
+</section>
+<!-- Task Groups -->
+<div class="space-y-12">
+<!-- Blocked Section -->
+<section>
+<div class="flex items-center justify-between mb-6 border-l-4 border-tertiary-fixed pl-4">
+<h3 class="font-headline font-bold text-lg text-on-surface">Blocked</h3>
+<span class="font-label text-xs bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded-full">2 Items</span>
+</div>
+<div class="space-y-4">
+<!-- Task Card -->
+<div class="bg-surface-container-lowest p-5 rounded-full transition-all duration-300 hover:bg-surface-container-low group">
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-sm">block</span>
+<span class="font-label text-[10px] uppercase tracking-tighter font-semibold text-tertiary-fixed">Waiting for API specs</span>
+</div>
+<h4 class="font-body font-medium text-on-surface mb-3">Integrate payment gateway webhooks</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline text-sm">calendar_today</span>
+<span class="text-xs text-outline">Oct 12</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-5 h-5 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-secondary-container">person</span>
+</div>
+<span class="text-xs text-outline">Sarah K.</span>
+</div>
+</div>
+</div>
+<div class="bg-tertiary-container/10 px-3 py-1 rounded-full">
+<span class="text-[10px] font-bold text-tertiary-fixed uppercase">High</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- In Progress Section -->
+<section>
+<div class="flex items-center justify-between mb-6 border-l-4 border-primary pl-4">
+<h3 class="font-headline font-bold text-lg text-on-surface">In Progress</h3>
+<span class="font-label text-xs bg-primary-container text-on-primary-container px-2 py-1 rounded-full">1 Item</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-5 rounded-full transition-all duration-300 hover:bg-surface-container-low">
+<div class="flex items-start justify-between gap-4">
+<div class="flex-1">
+<h4 class="font-body font-medium text-on-surface mb-3">Refine typography scale for mobile</h4>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-outline text-sm">calendar_today</span>
+<span class="text-xs text-outline">Today</span>
+</div>
+<div class="flex items-center gap-1.5">
+<img class="w-5 h-5 rounded-full object-cover" data-alt="Team member profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtTOZnVr7ZZ9n6CXVz9_OZbNQ8apDM1yFSsiYOYgblQatFunwmzXgHwzbYO5ASivrI86tDHqIz6kYP58ZWPQ-FzTdw7j4oPZXjpifNy82XfoRD01AO0HZzOgGb-KdFBxDexUKNt0W9MQ2W6b9Yni15k_tR-HOMHbqRnanA394uEJqD9MZjEl56iQIsr1mGTvwQK9kANSWoIUrmwbI_-PF695fTD6HmJEZ728EQs_N3nGfVYjRsOmDmGFShLct9n8JHPhh3E_1uwLw"/>
+<span class="text-xs text-outline">You</span>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container px-3 py-1 rounded-full">
+<span class="text-[10px] font-bold text-on-secondary-container uppercase">Medium</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Section -->
+<section>
+<div class="flex items-center justify-between mb-6 border-l-4 border-outline-variant pl-4">
+<h3 class="font-headline font-bold text-lg text-on-surface">Pending</h3>
+<span class="font-label text-xs bg-surface-container-high text-on-surface-variant px-2 py-1 rounded-full">3 Items</span>
+</div>
+<div class="space-y-0.5 bg-surface-container-low rounded-full overflow-hidden p-1">
+<!-- Task 1 -->
+<div class="bg-surface-container-lowest p-5 hover:bg-surface-container-low transition-colors duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center flex-shrink-0"></div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="text-sm font-medium">User interview synthesis</h4>
+<span class="text-[10px] font-bold text-outline uppercase tracking-wider">Low</span>
+</div>
+<div class="flex gap-3 mt-1">
+<span class="text-[10px] text-outline">Oct 15</span>
+<span class="text-[10px] text-outline">• Marc L.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="bg-surface-container-lowest p-5 hover:bg-surface-container-low transition-colors duration-300">
+<div class="flex items-center gap-4">
+<div class="w-6 h-6 rounded-full border border-outline-variant flex items-center justify-center flex-shrink-0"></div>
+<div class="flex-1">
+<div class="flex justify-between items-center">
+<h4 class="text-sm font-medium">Competitive audit: Calm vs Headspace</h4>
+<span class="text-[10px] font-bold text-on-secondary-container uppercase tracking-wider">Medium</span>
+</div>
+<div class="flex gap-3 mt-1">
+<span class="text-[10px] text-outline">Oct 18</span>
+<span class="text-[10px] text-outline">• Unassigned</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Completed Section -->
+<section class="opacity-40">
+<div class="flex items-center justify-between mb-6 border-l-4 border-outline-variant/30 pl-4">
+<h3 class="font-headline font-bold text-lg text-on-surface">Completed</h3>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-4 px-4 py-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm line-through">Establish core color palette tokens</span>
+</div>
+<div class="flex items-center gap-4 px-4 py-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm line-through">Kickoff meeting with stakeholders</span>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full px-6 pb-8 pt-4 flex justify-around items-center bg-[#faf9fc]/70 dark:bg-[#1A1C1E]/70 backdrop-blur-xl rounded-t-3xl z-50 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)]">
+<!-- Today -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Today</span>
+</a>
+<!-- Projects (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-[#5d5e61] text-white rounded-full p-3 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="tally">tty</span>
+<span class="hidden">Projects</span>
+</a>
+<!-- Add -->
+<button class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Add</span>
+</button>
+<!-- Calendar -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Calendar</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Settings</span>
+</a>
+</nav>
+<!-- Floating Action Element -->
+<div class="fixed bottom-28 right-6">
+<button class="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white shadow-xl hover:scale-95 transition-transform duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 400;">add</span>
+</button>
+</div>
+</body></html>

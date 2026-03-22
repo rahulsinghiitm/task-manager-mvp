@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9fc",
+              "on-secondary": "#f7f9ff",
+              "tertiary-fixed": "#fb4b41",
+              "background": "#faf9fc",
+              "primary-container": "#e2e2e5",
+              "secondary-fixed": "#dfe2eb",
+              "surface-container-high": "#e7e8f0",
+              "inverse-on-surface": "#9d9ca0",
+              "on-primary-container": "#505254",
+              "on-error-container": "#752121",
+              "primary-fixed-dim": "#d4d4d7",
+              "on-error": "#fff7f6",
+              "error-dim": "#4e0309",
+              "surface-container-highest": "#e0e2ec",
+              "outline-variant": "#afb1bc",
+              "on-secondary-container": "#4e5259",
+              "on-primary-fixed-variant": "#5a5c5e",
+              "secondary-container": "#dfe2eb",
+              "secondary-dim": "#4f535a",
+              "secondary": "#5b5f67",
+              "on-tertiary-fixed-variant": "#340001",
+              "surface-container": "#ededf4",
+              "surface-variant": "#e0e2ec",
+              "surface-container-low": "#f4f3f8",
+              "tertiary-fixed-dim": "#e93e36",
+              "on-tertiary": "#fff7f6",
+              "tertiary-dim": "#a90710",
+              "on-background": "#2f323a",
+              "on-surface-variant": "#5c5f68",
+              "on-surface": "#2f323a",
+              "surface": "#faf9fc",
+              "on-primary": "#f7f7fa",
+              "outline": "#787a84",
+              "on-secondary-fixed": "#3b4046",
+              "surface-dim": "#d7d9e6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#d1d4dd",
+              "primary-dim": "#515255",
+              "inverse-surface": "#0d0e11",
+              "on-primary-fixed": "#3e3f42",
+              "tertiary": "#bb1b1b",
+              "inverse-primary": "#f9f9fc",
+              "on-tertiary-container": "#110000",
+              "primary-fixed": "#e2e2e5",
+              "error-container": "#fe8983",
+              "on-secondary-fixed-variant": "#585c63",
+              "error": "#9f403d",
+              "surface-tint": "#5d5e61",
+              "tertiary-container": "#fb4b41",
+              "on-tertiary-fixed": "#000000",
+              "primary": "#5d5e61"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'WHT' 300, 'opsz' 24;
+            font-size: 20px;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #faf9fc;
+            color: #2f323a;
+        }
+        h1, h2, h3 {
+            font-family: 'Manrope', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#faf9fc]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="User profile photo avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDwykePFO-2-iw9n8VbKa5O6xtS5pV7RfIN6aM0X4B322Wl-glCos8wra_IR0flf4y0UKQ-4WdUGiYheJtzVrg4n0-1YYFH3Sx6mnwpJJ6WFu8f9A8dSt3iWdPjsUJfiVPo3Lsu5ijwT3ywBGpvTsAGoxG6Hxyt7hyPi3g8aRHQEUpyVqSLVJhvu8O1xGb9al-pS06utYwbyn_Ta5FmpFPER6hzhvYNB7DlXp22yJxml-udlklaldGa6xF7oxNQJHnFMHsFVNHRM4"/>
+</div>
+<h1 class="font-['Manrope'] font-bold text-slate-800 tracking-tight text-xl">Schedule</h1>
+</div>
+<button class="text-slate-700 hover:opacity-80 transition-opacity duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-20 px-6 max-w-2xl mx-auto">
+<!-- Calendar Section -->
+<section class="mb-10">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="text-2xl font-extrabold text-on-surface tracking-tight">October 2023</h2>
+<p class="text-on-surface-variant text-sm font-medium">12 tasks remaining this week</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-container-low rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-2 bg-surface-container-low rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Weekly Horizontal View (Sleek Scrollable) -->
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-6 px-6">
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300 opacity-60">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Mon</span>
+<span class="text-lg font-bold font-headline">23</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300 opacity-60">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Tue</span>
+<span class="text-lg font-bold font-headline">24</span>
+</div>
+<!-- Selected State -->
+<div class="flex flex-col items-center justify-center min-w-[64px] py-6 bg-primary text-on-primary rounded-full shadow-lg shadow-primary/20 transition-all duration-300 scale-110">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Wed</span>
+<span class="text-xl font-extrabold font-headline tracking-tighter">25</span>
+<div class="mt-2 w-1 h-1 bg-tertiary-container rounded-full"></div>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300 relative">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Thu</span>
+<span class="text-lg font-bold font-headline">26</span>
+<div class="absolute top-2 right-2 w-1.5 h-1.5 bg-tertiary-container rounded-full ring-2 ring-surface-container-low"></div>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Fri</span>
+<span class="text-lg font-bold font-headline">27</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Sat</span>
+<span class="text-lg font-bold font-headline">28</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[56px] py-4 bg-surface-container-low rounded-full transition-all duration-300">
+<span class="text-[10px] font-bold uppercase tracking-tighter mb-2 font-label">Sun</span>
+<span class="text-lg font-bold font-headline">29</span>
+</div>
+</div>
+</section>
+<!-- Daily Agenda -->
+<section class="space-y-8 pl-4 border-l-[1px] border-outline-variant/20 ml-2">
+<!-- Time Block: Morning -->
+<div class="relative">
+<div class="absolute -left-[21px] top-0 w-3 h-3 rounded-full bg-surface ring-4 ring-surface-container-low"></div>
+<span class="block text-[11px] font-bold text-on-surface-variant uppercase tracking-widest mb-4 ml-6">09:00 AM</span>
+<div class="ml-6 space-y-4">
+<!-- Task Card -->
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_12px_24px_-8px_rgba(0,0,0,0.03)] hover:shadow-[0_24px_48px_-12px_rgba(47,50,58,0.06)] transition-all duration-500 group">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-tight bg-secondary-container text-on-secondary-container">Consulting</span>
+<span class="text-[10px] font-medium text-on-surface-variant font-label italic">90 min</span>
+</div>
+<h3 class="text-base font-bold text-on-surface group-hover:text-primary transition-colors">Strategic Roadmap Review</h3>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Review the Q4 expansion milestones with the lead architect.</p>
+</div>
+</div>
+</div>
+<!-- Time Block: Noon (Urgent) -->
+<div class="relative">
+<div class="absolute -left-[21px] top-0 w-3 h-3 rounded-full bg-tertiary-container ring-4 ring-tertiary-container/10"></div>
+<span class="block text-[11px] font-bold text-tertiary-container uppercase tracking-widest mb-4 ml-6">12:30 PM</span>
+<div class="ml-6 space-y-4">
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_12px_24px_-8px_rgba(0,0,0,0.03)] border-l-4 border-tertiary-container">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-tight bg-tertiary-container text-on-tertiary-container">Urgent</span>
+<span class="material-symbols-outlined text-tertiary-container scale-75" data-icon="priority_high">priority_high</span>
+</div>
+<h3 class="text-base font-bold text-on-surface">Flywheel Project Launch</h3>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Final asset handoff and CDN verification for the main deployment.</p>
+<div class="mt-4 flex -space-x-2">
+<img class="w-6 h-6 rounded-full border-2 border-surface" data-alt="Team member portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6PKTIB7-KFM7-2ioUIP90KoGmlBIEnZn_bafu1q_KJzrKUlZD8sKDJ4SIP2ntzXulB1wa1Db8Yh1rXSCBIIDKl6bpq1TALbh7u2MWxKLFmnYDYLsKsZlaZ9LIDQwpjNrPEfpkw7d7h6_ylR4e6pDa17ThaEkNrFlbbdGSWT2WKesVKSVMXU8otXelC-ZQYxAhlpP5LRuLK-3NT6DPRjZizoZGIcz1o1PONRyOp5s-J-uiov8UpZmeinv4moCncPS4TPSLEIH8irU"/>
+<img class="w-6 h-6 rounded-full border-2 border-surface" data-alt="Team member portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAavdVgL_5RjM9y-JR2O7gssPGJi0yBEeZ-b9At7G8x_2UxKxoTDQ-FghkKXShNd2APO96BdWw8Tbym3sPfLrV0DgWyAZRJiIgsSA4RuUOP2lMdEiL7D2nRrlz4aXD18vEIp3R4lqV8QQ1NitCH5WjcHjWnj070bYsY8SotcKPXP4QbxDw_4euNxY5d70z4ajFiHh56565lSs_0BCmGPJZdoRgv70lUpuKiwYg1MW7CDxvqCr31UuKJQ7dpkR0XT3efmgpZa0g74Mg"/>
+<div class="w-6 h-6 rounded-full bg-surface-container-high border-2 border-surface flex items-center justify-center text-[8px] font-bold">+3</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Time Block: Afternoon -->
+<div class="relative">
+<div class="absolute -left-[21px] top-0 w-3 h-3 rounded-full bg-surface ring-4 ring-surface-container-low"></div>
+<span class="block text-[11px] font-bold text-on-surface-variant uppercase tracking-widest mb-4 ml-6">03:00 PM</span>
+<div class="ml-6 space-y-4">
+<div class="bg-surface-container-lowest p-5 rounded-2xl shadow-[0_12px_24px_-8px_rgba(0,0,0,0.03)]">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2.5 py-1 rounded-lg text-[10px] font-bold tracking-tight bg-primary-fixed text-on-primary-fixed">Personal</span>
+<span class="text-[10px] font-medium text-on-surface-variant font-label">Deep Work</span>
+</div>
+<h3 class="text-base font-bold text-on-surface">Weekly Retrospective</h3>
+<p class="text-sm text-on-surface-variant mt-1">Reviewing journaling and habits for the previous 7 days.</p>
+</div>
+<div class="bg-surface-container-low/50 p-4 rounded-2xl opacity-40">
+<h3 class="text-sm font-medium text-on-surface-variant italic">No more tasks scheduled</h3>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full px-6 pb-8 pt-4 flex justify-around items-center bg-[#faf9fc]/70 backdrop-blur-xl z-50 rounded-t-3xl shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="tally">tty</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Projects</span>
+</a>
+<!-- Active Nav: Add (Special execution as fab style if needed, but following JSON structure) -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mic">mic</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Add</span>
+</a>
+<!-- ACTIVE STATE: Calendar -->
+<a class="flex flex-col items-center justify-center bg-[#5d5e61] text-white rounded-full p-3 transition-all duration-300 scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="hidden">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

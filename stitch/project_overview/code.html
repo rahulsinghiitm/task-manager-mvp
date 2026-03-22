@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projects - The Digital Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#faf9fc",
+              "on-secondary": "#f7f9ff",
+              "tertiary-fixed": "#fb4b41",
+              "background": "#faf9fc",
+              "primary-container": "#e2e2e5",
+              "secondary-fixed": "#dfe2eb",
+              "surface-container-high": "#e7e8f0",
+              "inverse-on-surface": "#9d9ca0",
+              "on-primary-container": "#505254",
+              "on-error-container": "#752121",
+              "primary-fixed-dim": "#d4d4d7",
+              "on-error": "#fff7f6",
+              "error-dim": "#4e0309",
+              "surface-container-highest": "#e0e2ec",
+              "outline-variant": "#afb1bc",
+              "on-secondary-container": "#4e5259",
+              "on-primary-fixed-variant": "#5a5c5e",
+              "secondary-container": "#dfe2eb",
+              "secondary-dim": "#4f535a",
+              "secondary": "#5b5f67",
+              "on-tertiary-fixed-variant": "#340001",
+              "surface-container": "#ededf4",
+              "surface-variant": "#e0e2ec",
+              "surface-container-low": "#f4f3f8",
+              "tertiary-fixed-dim": "#e93e36",
+              "on-tertiary": "#fff7f6",
+              "tertiary-dim": "#a90710",
+              "on-background": "#2f323a",
+              "on-surface-variant": "#5c5f68",
+              "on-surface": "#2f323a",
+              "surface": "#faf9fc",
+              "on-primary": "#f7f7fa",
+              "outline": "#787a84",
+              "on-secondary-fixed": "#3b4046",
+              "surface-dim": "#d7d9e6",
+              "surface-container-lowest": "#ffffff",
+              "secondary-fixed-dim": "#d1d4dd",
+              "primary-dim": "#515255",
+              "inverse-surface": "#0d0e11",
+              "on-primary-fixed": "#3e3f42",
+              "tertiary": "#bb1b1b",
+              "inverse-primary": "#f9f9fc",
+              "on-tertiary-container": "#110000",
+              "primary-fixed": "#e2e2e5",
+              "error-container": "#fe8983",
+              "on-secondary-fixed-variant": "#585c63",
+              "error": "#9f403d",
+              "surface-tint": "#5d5e61",
+              "tertiary-container": "#fb4b41",
+              "on-tertiary-fixed": "#000000",
+              "primary": "#5d5e61"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .cloud-shadow {
+            box-shadow: 0 24px 48px -12px rgba(47, 50, 58, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#faf9fc]/70 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Modern close-up portrait of a professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7BZcw-XhRUDWoT47wfcBKcuF8nDrKtK0vLLy0yx1ETQLj5chgk43zrZnxaqvB-sabWhTRSyPSjk9vqFqCsrYs29_smZW04F9fXPSVRlh4T20BebL42zcW29mmYjtvPMbukIEusmB1OQJsUMhdxh_BnRcZlgcrw7i1zrs0pPDbMEEOhglNHdcQLiOrVikzgNvwEnWaOLRHEePZzTgywaEbc6vaDmZK_KMPx4PbVBw1FA0ljMBxsRd_dJjbk1pnVvbHOwZkqZLLtpE"/>
+</div>
+</div>
+<h1 class="font-headline font-bold text-slate-800 tracking-tight text-xl">Projects</h1>
+<button class="w-10 h-10 flex items-center justify-center text-slate-700 hover:opacity-80 transition-opacity duration-300">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-5xl mx-auto">
+<!-- Dashboard Header -->
+<section class="mb-12 ml-[5%]">
+<p class="font-label text-label-sm text-on-surface-variant tracking-widest uppercase mb-2">Portfolio Overview</p>
+<h2 class="font-headline text-4xl font-extrabold text-on-surface tracking-tighter">Your active curation.</h2>
+</section>
+<!-- Bento Grid Projects -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Flywheel Project - Large Featured Card -->
+<div class="md:col-span-8 bg-surface-container-low rounded-full p-8 flex flex-col justify-between min-h-[420px] cloud-shadow relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/20 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded-full">Core Ops</span>
+<h3 class="font-headline text-3xl font-bold mt-4 text-on-surface">Flywheel</h3>
+</div>
+<div class="text-right">
+<p class="font-headline text-2xl font-extrabold text-primary">12/20</p>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-tighter">tasks done</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mb-10">
+<div class="h-full bg-primary rounded-full" style="width: 60%"></div>
+</div>
+<div class="space-y-4">
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Urgent Tasks</p>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<span class="text-on-surface font-medium">Quarterly growth review</span>
+<span class="text-tertiary font-semibold text-xs uppercase tracking-widest">Today</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<span class="text-on-surface font-medium">Internal scaling documentation</span>
+<span class="text-on-surface-variant text-xs">Tomorrow</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Consulting Project - Secondary Card -->
+<div class="md:col-span-4 bg-secondary-container rounded-full p-8 flex flex-col cloud-shadow">
+<div class="mb-8">
+<span class="font-label text-[10px] uppercase tracking-widest text-on-secondary-container bg-surface-container-lowest/50 px-3 py-1 rounded-full">External</span>
+<h3 class="font-headline text-2xl font-bold mt-4 text-on-secondary-container">Consulting</h3>
+<div class="flex items-end gap-2 mt-2">
+<p class="font-headline text-xl font-bold text-on-secondary-container">8/15</p>
+<p class="font-label text-[10px] text-on-secondary-container/70 uppercase mb-1">active</p>
+</div>
+</div>
+<div class="mt-auto space-y-3">
+<div class="bg-surface-container-lowest/40 backdrop-blur-sm p-4 rounded-xl">
+<p class="text-on-secondary-container text-sm font-medium">Brand Strategy Deck</p>
+<p class="text-on-secondary-container/60 text-[10px] uppercase mt-1">Due in 2h</p>
+</div>
+<div class="bg-surface-container-lowest/40 backdrop-blur-sm p-4 rounded-xl">
+<p class="text-on-secondary-container text-sm font-medium">Client Sync: Q3</p>
+<p class="text-on-secondary-container/60 text-[10px] uppercase mt-1">Thursday</p>
+</div>
+</div>
+</div>
+<!-- Personal Project - Grid Card -->
+<div class="md:col-span-6 bg-surface-container-low rounded-full p-8 cloud-shadow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Personal</h3>
+<p class="font-headline text-lg font-bold text-on-surface-variant">4/10</p>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full mb-8">
+<div class="h-full bg-on-surface-variant rounded-full" style="width: 40%"></div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<span class="text-on-surface text-sm">Health: Mobility Routine</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary-container"></div>
+<span class="text-on-surface text-sm">Review reading list</span>
+</div>
+</div>
+</div>
+<!-- Side Projects - Grid Card -->
+<div class="md:col-span-6 bg-primary-container rounded-full p-8 cloud-shadow relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #2f323a 1px, transparent 0); background-size: 24px 24px;"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-2xl font-bold text-on-primary-container">Side Projects</h3>
+<p class="font-headline text-lg font-bold text-on-primary-container">2/8</p>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl">
+<p class="text-on-surface text-sm font-medium">AI Photo Editor Beta</p>
+<div class="flex gap-2 mt-2">
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-[10px] font-bold text-on-surface-variant uppercase">Dev</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full px-6 pb-8 pt-4 flex justify-around items-center bg-[#faf9fc]/70 backdrop-blur-xl rounded-t-3xl z-50 shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)]">
+<!-- Today -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Today</span>
+</a>
+<!-- Projects (Active) -->
+<a class="flex flex-col items-center justify-center bg-[#5d5e61] text-white rounded-full p-3 transition-all duration-300 scale-100" href="#">
+<span class="material-symbols-outlined" data-icon="tally">tty</span>
+<span class="hidden font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Projects</span>
+</a>
+<!-- Add -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="mic">mic</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Add</span>
+</a>
+<!-- Calendar -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Calendar</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-slate-700 transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="person">person</span>
+<span class="font-['Inter'] text-[10px] uppercase tracking-widest font-medium">Settings</span>
+</a>
+</nav>
+<!-- Floating Action Button (Optional contextual enhancement) -->
+<button class="fixed right-6 bottom-32 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary-dim flex items-center justify-center text-white shadow-xl z-40 active:scale-95 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="add" style="font-variation-settings: 'wght' 600;">add</span>
+</button>
+</body></html>
